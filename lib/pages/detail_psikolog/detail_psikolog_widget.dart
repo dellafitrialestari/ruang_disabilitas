@@ -1,3 +1,5 @@
+import 'package:ruang_disabilitas/auth/firebase_auth/auth_util.dart';
+
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -29,7 +31,7 @@ class DetailPsikologWidget extends StatefulWidget {
 }
 
 class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   late DetailPsikologModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -59,6 +61,7 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _model = createModel(context, () => DetailPsikologModel());
 
     setupAnimations(
@@ -283,9 +286,35 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
+                                                  final users =
+                                                      FirebaseFirestore.instance
+                                                          .collection('users')
+                                                          .doc(currentUserUid);
+                                                  if (valueOrDefault(
+                                                              currentUserDocument
+                                                                  ?.video,
+                                                              null) !=
+                                                          null &&
+                                                      valueOrDefault(
+                                                              currentUserDocument
+                                                                  ?.video,
+                                                              0) >
+                                                          0) {
+                                                    users.update({
+                                                      'video': valueOrDefault(
+                                                              currentUserDocument
+                                                                  ?.video,
+                                                              0) -
+                                                          1
+                                                    });
+                                                  }
                                                   await launchURL(
-                                                      detailPsikologPsikologRecord
-                                                          .linkVideo);
+                                                          detailPsikologPsikologRecord
+                                                              .linkVideo)
+                                                      .then((value) async {
+                                                    await authManager
+                                                        .refreshUser();
+                                                  });
                                                 },
                                                 child: Row(
                                                   mainAxisSize:
@@ -330,6 +359,31 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
                                                                 ),
                                                       ),
                                                     ),
+                                                    Visibility(
+                                                        visible: valueOrDefault(
+                                                                currentUserDocument
+                                                                    ?.video,
+                                                                null) !=
+                                                            null,
+                                                        child: CircleAvatar(
+                                                          backgroundColor:
+                                                              Color(0xFF446DE6),
+                                                          child: Text(
+                                                              valueOrDefault(
+                                                                      currentUserDocument
+                                                                          ?.video,
+                                                                      0)
+                                                                  .toString(),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Readex Pro',
+                                                                    color: Colors
+                                                                        .white,
+                                                                  )),
+                                                        ))
                                                   ],
                                                 ),
                                               ),
@@ -353,6 +407,28 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
+                                                  final users =
+                                                      FirebaseFirestore.instance
+                                                          .collection('users')
+                                                          .doc(currentUserUid);
+                                                  if (valueOrDefault(
+                                                              currentUserDocument
+                                                                  ?.telepon,
+                                                              null) !=
+                                                          null &&
+                                                      valueOrDefault(
+                                                              currentUserDocument
+                                                                  ?.video,
+                                                              0) >
+                                                          0) {
+                                                    users.update({
+                                                      'telepon': valueOrDefault(
+                                                              currentUserDocument
+                                                                  ?.telepon,
+                                                              0) -
+                                                          1
+                                                    });
+                                                  }
                                                   await launchURL(
                                                       detailPsikologPsikologRecord
                                                           .linkCall);
@@ -400,6 +476,31 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
                                                                 ),
                                                       ),
                                                     ),
+                                                    Visibility(
+                                                        visible: valueOrDefault(
+                                                                currentUserDocument
+                                                                    ?.telepon,
+                                                                null) !=
+                                                            null,
+                                                        child: CircleAvatar(
+                                                          backgroundColor:
+                                                              Color(0xFF446DE6),
+                                                          child: Text(
+                                                              valueOrDefault(
+                                                                      currentUserDocument
+                                                                          ?.telepon,
+                                                                      0)
+                                                                  .toString(),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Readex Pro',
+                                                                    color: Colors
+                                                                        .white,
+                                                                  )),
+                                                        ))
                                                   ],
                                                 ),
                                               ),
@@ -788,37 +889,95 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 12.0),
-                                      child: FFButtonWidget(
-                                        onPressed: () async {
-                                          await launchURL(
-                                              detailPsikologPsikologRecord
-                                                  .linkChat);
-                                        },
-                                        text: 'Mulai Konsultasi',
-                                        options: FFButtonOptions(
-                                          width: double.infinity,
-                                          height: 48.0,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          color: Color(0xFF446DE6),
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .override(
-                                                    fontFamily: 'Poppins',
-                                                    color: Colors.white,
-                                                  ),
-                                          borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                            width: 1.0,
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: FFButtonWidget(
+                                              onPressed: () async {
+                                                final users = FirebaseFirestore
+                                                    .instance
+                                                    .collection('users')
+                                                    .doc(currentUserUid);
+                                                if (valueOrDefault(
+                                                            currentUserDocument
+                                                                ?.chat,
+                                                            null) !=
+                                                        null &&
+                                                    valueOrDefault(
+                                                            currentUserDocument
+                                                                ?.chat,
+                                                            0) >
+                                                        0) {
+                                                  await launchURL(
+                                                      detailPsikologPsikologRecord
+                                                          .linkChat);
+                                                  /// TODO - Chat Counter
+                                                  users.update({
+                                                    'chat': valueOrDefault(
+                                                            currentUserDocument
+                                                                ?.chat,
+                                                            0) -
+                                                        1
+                                                  });
+                                                }
+                                              },
+                                              text: 'Mulai Konsultasi',
+                                              options: FFButtonOptions(
+                                                width: double.infinity,
+                                                height: 48.0,
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 0.0),
+                                                iconPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                            0.0, 0.0, 0.0, 0.0),
+                                                color: Color(0xFF446DE6),
+                                                textStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: Colors.white,
+                                                        ),
+                                                borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                            ),
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
+                                          Visibility(
+                                            visible: valueOrDefault(
+                                                    currentUserDocument?.chat,
+                                                    null) !=
+                                                null,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: CircleAvatar(
+                                                backgroundColor:
+                                                    Color(0xFF446DE6),
+                                                child: Text(
+                                                    valueOrDefault(
+                                                            currentUserDocument
+                                                                ?.chat,
+                                                            0)
+                                                        .toString(),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          color: Colors.white,
+                                                        )),
+                                              ),
+                                            ),
+                                          )
+                                        ],
                                       ),
                                     ),
                                   ],
@@ -837,5 +996,17 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
         );
       },
     );
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      if(mounted) {
+        setState(() {
+          authManager.refreshUser();
+        });
+      }
+    }
+    super.didChangeAppLifecycleState(state);
   }
 }

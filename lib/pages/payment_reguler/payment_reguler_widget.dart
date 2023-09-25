@@ -643,7 +643,7 @@ class _PaymentRegulerWidgetState extends State<PaymentRegulerWidget> {
                               29.0, 0.0, 29.0, 29.0),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              var url = await initiatePayment(int.tryParse(columnPricingRecord.hargaR.replaceAll("Rp. ", "").replaceAll(".", "")), currentUserEmail);
+                              var url = await initiatePayment(int.tryParse(columnPricingRecord.hargaR.replaceAll("Rp. ", "").replaceAll(".", "")), currentUserEmail, "regular");
                               if(url != null) {
                                 Navigator.push(
                                   context,

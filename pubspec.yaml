@@ -46,6 +46,7 @@ dependencies:
   firebase_storage: ^11.2.6
   firebase_storage_platform_interface: ^4.4.5
   firebase_storage_web: ^3.6.6
+  firebase_messaging: 
   flutter_animate: 4.1.1+1
   flutter_cache_manager: ^3.3.1
   flutter_plugin_android_lifecycle: 2.0.9
@@ -102,6 +103,7 @@ dependencies:
   webview_flutter_platform_interface: 2.0.2
   webview_flutter_wkwebview: 3.1.1
   youtube_player_iframe: 4.0.4
+  awesome_notifications:
 
 
   # The following adds the Cupertino Icons font to your application.

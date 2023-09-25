@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
 import '../auth/firebase_auth/auth_util.dart';
@@ -564,17 +566,41 @@ Future updateUserDocument({String? email}) async {
       .update(createUsersRecordData(email: email));
 }
 
-Future<String?> initiatePayment(int? amount, String? email) async {
+Future<String?> initiatePayment(int? amount, String? email, String packageClass) async {
+  final fcm = FirebaseMessaging.instance;
+  final fcmToken = await fcm.getToken();
   final url = 'https://api.xendit.co/v2/invoices';
+  // final url = 'https://ruang-disabilitas.monevadmin.id/callback';
   final headers = {
-    // 'Authorization': 'Basic eG5kX2RldmVsb3BtZW50X1A0cURmT3NzME9DcGw4UnRLclJPSGphUVlOQ2s5ZE41bFNmaytSMWw5V2JlK3JTaUN3WjNqdz09Og==',
-    'Authorization': 'Basic eG5kX3Byb2R1Y3Rpb25fUER2bXNuUnN5RDNHSUxPU2pNcnpPNkhENXhJOUlLd3BSOXFzTTc4SkFFdzFScTlPVkFhREVYek9STVNQVjU6',
+    /// TEST API KEY
+    'Authorization': 'Basic eG5kX2RldmVsb3BtZW50X1A0cURmT3NzME9DcGw4UnRLclJPSGphUVlOQ2s5ZE41bFNmaytSMWw5V2JlK3JTaUN3WjNqdz09Og==',
+    /// LIVE API KEY
+    // 'Authorization': 'Basic eG5kX3Byb2R1Y3Rpb25fUER2bXNuUnN5RDNHSUxPU2pNcnpPNkhENXhJOUlLd3BSOXFzTTc4SkFFdzFScTlPVkFhREVYek9STVNQVjU6',
     'Content-Type': 'application/json',
+    'webhook-id': Uuid().v4(),
+    // 'X-CALLBACK-TOKEN': "xnd_public_development_EIttghManIdT5RtpdwaKYGuV2EtiiDOTofF73nxvmVXdyOD8O8wgtyOezRx7eZM"
+    'X-CALLBACK-TOKEN': "XKRQlvIOzNCJPrYUx8l7tcokXFhGUaPaj8jLmeEhu7Im6ytM"
   };
+
+
+  final desc = """
+  {
+    "paket": "$packageClass",
+    "device_id": "$fcmToken",
+    "uid": "$currentUserUid"
+  }
+  """;
   final body = {
-    'external_id': Uuid().v4(),
+    'external_id': currentUserUid,
     'amount': amount, // Amount in the smallest currency unit (e.g., cents)
     'payer_email': email,
+    'success_redirect_url': "https://ruang-disabilitas.monevadmin.id/callback/$packageClass/$currentUserUid/$fcmToken",
+    "description": desc
+    // 'description': {
+    //   "paket": packageClass,
+    //   "device_id": fcmToken,
+    //   "uid": currentUserUid
+    // }
   };
 
   final response = await http.post(Uri.parse(url), headers: headers, body: jsonEncode(body));

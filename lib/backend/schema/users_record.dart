@@ -51,6 +51,26 @@ class UsersRecord extends FirestoreRecord {
   String get disabilitas => _disabilitas ?? '';
   bool hasDisabilitas() => _disabilitas != null;
 
+  // "chat" field.
+  int? _chat;
+  int? get chat => _chat;
+  bool hasChat() => _chat != null;
+
+  // "telepon" field.
+  int? _telepon;
+  int? get telepon => _telepon;
+  bool hasTelepon() => _telepon != null;
+
+  // "video" field.
+  int? _video;
+  int? get video => _video;
+  bool hasVideo() => _video != null;
+
+  // "offline" field.
+  int? _offline;
+  int? get offline => _offline;
+  bool hasOffline() => _offline != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -59,6 +79,10 @@ class UsersRecord extends FirestoreRecord {
     _createdTime = snapshotData['created_time'] as DateTime?;
     _phoneNumber = snapshotData['phone_number'] as String?;
     _disabilitas = snapshotData['disabilitas'] as String?;
+    _chat = snapshotData['chat'] as int?;
+    _telepon = snapshotData['telepon'] as int?;
+    _video = snapshotData['video'] as int?;
+    _offline = snapshotData['offline'] as int?;
   }
 
   static CollectionReference get collection =>
@@ -102,6 +126,10 @@ Map<String, dynamic> createUsersRecordData({
   DateTime? createdTime,
   String? phoneNumber,
   String? disabilitas,
+  int? chat,
+  int? telepon,
+  int? video,
+  int? offline,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -112,7 +140,12 @@ Map<String, dynamic> createUsersRecordData({
       'created_time': createdTime,
       'phone_number': phoneNumber,
       'disabilitas': disabilitas,
-    }.withoutNulls,
+      'chat': chat,
+      'telepon': telepon,
+      'video': video,
+      'offline': offline,
+    }
+    // }.withoutNulls,
   );
 
   return firestoreData;
@@ -129,7 +162,11 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.uid == e2?.uid &&
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
-        e1?.disabilitas == e2?.disabilitas;
+        e1?.disabilitas == e2?.disabilitas &&
+        e1?.chat == e2?.chat &&
+        e1?.telepon == e2?.telepon &&
+        e1?.video == e2?.video &&
+        e1?.offline == e2?.offline;
   }
 
   @override
@@ -140,7 +177,11 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.uid,
         e?.createdTime,
         e?.phoneNumber,
-        e?.disabilitas
+        e?.disabilitas,
+        e?.chat,
+        e?.telepon,
+        e?.video,
+        e?.offline,
       ]);
 
   @override

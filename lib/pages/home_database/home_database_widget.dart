@@ -1,3 +1,5 @@
+import 'package:ruang_disabilitas/auth/firebase_auth/auth_util.dart';
+
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -427,19 +429,35 @@ class _HomeDatabaseWidgetState extends State<HomeDatabaseWidget>
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            context.pushNamed(
-                                              'pricing-2',
-                                              extra: <String, dynamic>{
-                                                kTransitionInfoKey:
-                                                    TransitionInfo(
-                                                  hasTransition: true,
-                                                  transitionType:
-                                                      PageTransitionType.fade,
-                                                  duration:
-                                                      Duration(milliseconds: 0),
-                                                ),
-                                              },
-                                            );
+                                            if (valueOrDefault(
+                                                currentUserDocument
+                                                    ?.chat,
+                                                null) == null) {
+                                              context.pushNamed(
+                                                'pricing-2',
+                                                extra: <String, dynamic>{
+                                                  kTransitionInfoKey:
+                                                  TransitionInfo(
+                                                    hasTransition: true,
+                                                    transitionType:
+                                                    PageTransitionType.fade,
+                                                    duration: Duration(
+                                                        milliseconds: 0),
+                                                  ),
+                                                },
+                                              );
+                                            } else {
+                                              context.pushNamed(
+                                                'psikolog-all',
+                                                extra: <String, dynamic>{
+                                                  kTransitionInfoKey: TransitionInfo(
+                                                    hasTransition: true,
+                                                    transitionType: PageTransitionType.fade,
+                                                    duration: Duration(milliseconds: 0),
+                                                  ),
+                                                },
+                                              );
+                                            }
                                           },
                                           child: AutoSizeText(
                                             'View All',

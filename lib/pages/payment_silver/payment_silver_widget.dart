@@ -643,7 +643,7 @@ class _PaymentSilverWidgetState extends State<PaymentSilverWidget> {
                               29.0, 0.0, 29.0, 29.0),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              var url = await initiatePayment(int.tryParse(columnPricingRecord.hargaS.replaceAll("Rp. ", "").replaceAll(".", "")), currentUserEmail);
+                              var url = await initiatePayment(int.tryParse(columnPricingRecord.hargaS.replaceAll("Rp. ", "").replaceAll(".", "")), currentUserEmail, "silver");
                               if(url != null) {
                                 Navigator.push(
                                   context,
