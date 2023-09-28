@@ -1,3 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ruang_disabilitas/auth/firebase_auth/auth_util.dart';
 
 import '/backend/backend.dart';
@@ -6,16 +11,8 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'detail_psikolog_model.dart';
+
 export 'detail_psikolog_model.dart';
 
 class DetailPsikologWidget extends StatefulWidget {
@@ -307,14 +304,17 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
                                                               0) -
                                                           1
                                                     });
+                                                    await launchURL(
+                                                        detailPsikologPsikologRecord
+                                                            .linkVideo)
+                                                        .then((value) async {
+                                                      await authManager
+                                                          .refreshUser();
+                                                    });
+                                                  } else {
+                                                    context.pushNamed("pricing-2");
                                                   }
-                                                  await launchURL(
-                                                          detailPsikologPsikologRecord
-                                                              .linkVideo)
-                                                      .then((value) async {
-                                                    await authManager
-                                                        .refreshUser();
-                                                  });
+
                                                 },
                                                 child: Row(
                                                   mainAxisSize:
@@ -364,7 +364,10 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
                                                                 currentUserDocument
                                                                     ?.video,
                                                                 null) !=
-                                                            null,
+                                                            null && valueOrDefault(
+                                                            currentUserDocument
+                                                                ?.video,
+                                                            null) != 0,
                                                         child: CircleAvatar(
                                                           backgroundColor:
                                                               Color(0xFF446DE6),
@@ -418,7 +421,7 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
                                                           null &&
                                                       valueOrDefault(
                                                               currentUserDocument
-                                                                  ?.video,
+                                                                  ?.telepon,
                                                               0) >
                                                           0) {
                                                     users.update({
@@ -428,10 +431,12 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
                                                               0) -
                                                           1
                                                     });
+                                                    await launchURL(
+                                                        detailPsikologPsikologRecord
+                                                            .linkCall);
+                                                  } else {
+                                                    context.pushNamed("pricing-2");
                                                   }
-                                                  await launchURL(
-                                                      detailPsikologPsikologRecord
-                                                          .linkCall);
                                                 },
                                                 child: Row(
                                                   mainAxisSize:
@@ -481,7 +486,10 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
                                                                 currentUserDocument
                                                                     ?.telepon,
                                                                 null) !=
-                                                            null,
+                                                            null && valueOrDefault(
+                                                            currentUserDocument
+                                                                ?.telepon,
+                                                            null) != 0,
                                                         child: CircleAvatar(
                                                           backgroundColor:
                                                               Color(0xFF446DE6),
@@ -919,6 +927,8 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
                                                             0) -
                                                         1
                                                   });
+                                                } else {
+                                                  context.pushNamed("pricing-2");
                                                 }
                                               },
                                               text: 'Mulai Konsultasi',
@@ -953,7 +963,9 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
                                             visible: valueOrDefault(
                                                     currentUserDocument?.chat,
                                                     null) !=
-                                                null,
+                                                null && valueOrDefault(
+                                                currentUserDocument?.chat,
+                                                null) != 0,
                                             child: Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),

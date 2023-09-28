@@ -26,15 +26,6 @@ Future initFirebase() async {
 
 @pragma('vm:entry-point')
 configureFCM() async {
-  // AwesomeNotifications().initialize("resource://drawable/ic_launcher", [
-  AwesomeNotifications().initialize(null, [
-    NotificationChannel(
-        channelKey: "ruangdisabilitas_channel",
-        channelName: "Ruang Disabilitas Channel",
-        channelDescription: "Showing Ruang Disabilitas Notification",
-        defaultColor: Colors.greenAccent,
-        ledColor: Colors.greenAccent),
-  ]);
   await initFirebase();
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   messaging.setAutoInitEnabled(true);
@@ -70,13 +61,7 @@ configureFCM() async {
           print("Notif message: ${message.notification?.body}");
         }
       }
-      AwesomeNotifications().createNotification(
-        content: NotificationContent(
-            id: id++,
-            channelKey: "ruangdisabilitas_channel",
-            title: message.notification?.title,
-            body: message.notification?.body),
-      );
+      showNotification(message: message.data["message"] ?? message.notification?.body, title: message.data["title"] ?? message.notification?.title);
       return;
     });
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
@@ -89,17 +74,11 @@ configureFCM() async {
           print("Notif message: ${message.notification?.body}");
         }
       }
-      AwesomeNotifications().createNotification(
-        content: NotificationContent(
-            id: id++,
-            channelKey: "ruangdisabilitas_channel",
-            title: message.notification?.title,
-            body: message.notification?.body),
-      );
+      showNotification(message: message.data["message"] ?? message.notification?.body, title: message.data["title"] ?? message.notification?.title);
     });
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       if (kDebugMode) {
-        print("Notif data: ${message.data}");
+        print("Notif data message: ${message.data}");
       }
       if (message.notification != null) {
         if (kDebugMode) {
@@ -107,13 +86,7 @@ configureFCM() async {
           print("Notif message: ${message.notification?.body}");
         }
       }
-      AwesomeNotifications().createNotification(
-        content: NotificationContent(
-            id: id++,
-            channelKey: "ruangdisabilitas_channel",
-            title: message.notification?.title,
-            body: message.notification?.body),
-      );
+      showNotification(message: message.data["message"] ?? message.notification?.body, title: message.data["title"] ?? message.notification?.title);
     });
   }
   if (settings.authorizationStatus == AuthorizationStatus.authorized) {
@@ -130,3 +103,28 @@ configureFCM() async {
     }
   }
 }
+
+showNotification({String? title, String? message}) {
+  AwesomeNotifications().initialize(null, [
+    NotificationChannel(
+        channelKey: "ruangdisabilitas_channel",
+        channelName: "Ruang Disabilitas Channel",
+        channelDescription: "Showing Ruang Disabilitas Notification",
+        importance: NotificationImportance.Max,
+        defaultPrivacy: NotificationPrivacy.Public,
+        enableLights: true,
+        enableVibration: true,
+        channelShowBadge: true,
+        criticalAlerts: true,
+        defaultColor: Colors.greenAccent,
+        ledColor: Colors.greenAccent),
+  ]);
+  AwesomeNotifications().createNotification(
+    content: NotificationContent(
+        id: id++,
+        channelKey: "ruangdisabilitas_channel",
+        title: title,
+        body: message),
+  );
+}
+
