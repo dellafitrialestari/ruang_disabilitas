@@ -497,6 +497,7 @@ class _HomeDatabaseWidgetState extends State<HomeDatabaseWidget>
                                             listViewPsikologRecordList =
                                             snapshot.data!;
                                         return ListView.builder(
+                                          primary: false,
                                           padding: EdgeInsets.zero,
                                           shrinkWrap: true,
                                           scrollDirection: Axis.vertical,

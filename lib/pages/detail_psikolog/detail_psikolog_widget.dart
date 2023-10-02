@@ -253,267 +253,421 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
                                             .warning,
                                       ),
                                     ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 12.0, 0.0, 12.0),
-                                      child: Container(
-                                        width: double.infinity,
-                                        height: 60.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                          border: Border.all(
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            width: 2.0,
+                                    Visibility(
+                                      visible: _model.berlangananButton(),
+                                      replacement: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 12.0, 0.0, 12.0),
+                                        child: Container(
+                                          width: double.infinity,
+                                          height: 60.0,
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFF446DE6),
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
+                                            border: Border.all(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              width: 0.5,
+                                            ),
+                                          ),
+                                          child: TextButton(
+                                            onPressed: () => context.pushNamed(
+                                              'pricing-2',
+                                              extra: <String, dynamic>{
+                                                kTransitionInfoKey:
+                                                    TransitionInfo(
+                                                  hasTransition: true,
+                                                  transitionType:
+                                                      PageTransitionType.fade,
+                                                  duration:
+                                                      Duration(milliseconds: 0),
+                                                ),
+                                              },
+                                            ),
+                                            child: Text(
+                                              "Berlanganan Sekarang!",
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        color: Colors.white,
+                                                        fontFamily: 'Poppins',
+                                                        fontSize: 14.0,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                            ),
                                           ),
                                         ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Expanded(
-                                              child: InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  final users =
-                                                      FirebaseFirestore.instance
-                                                          .collection('users')
-                                                          .doc(currentUserUid);
-                                                  if (valueOrDefault(
-                                                              currentUserDocument
-                                                                  ?.video,
-                                                              null) !=
-                                                          null &&
-                                                      valueOrDefault(
-                                                              currentUserDocument
-                                                                  ?.video,
-                                                              0) >
-                                                          0) {
-                                                    users.update({
-                                                      'video': valueOrDefault(
-                                                              currentUserDocument
-                                                                  ?.video,
-                                                              0) -
-                                                          1
-                                                    });
-                                                    await launchURL(
-                                                        detailPsikologPsikologRecord
-                                                            .linkVideo)
-                                                        .then((value) async {
-                                                      await authManager
-                                                          .refreshUser();
-                                                    });
-                                                  } else {
-                                                    context.pushNamed("pricing-2");
-                                                  }
-
-                                                },
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  12.0,
-                                                                  0.0,
-                                                                  12.0),
-                                                      child: FaIcon(
-                                                        FontAwesomeIcons.video,
-                                                        color:
-                                                            Color(0xFF446DE6),
-                                                        size: 24.0,
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  8.0,
-                                                                  0.0,
-                                                                  12.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        'Video',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
-                                                                  color: Color(
-                                                                      0xFF446DE6),
-                                                                ),
-                                                      ),
-                                                    ),
-                                                    Visibility(
-                                                        visible: valueOrDefault(
-                                                                currentUserDocument
-                                                                    ?.video,
-                                                                null) !=
-                                                            null && valueOrDefault(
-                                                            currentUserDocument
-                                                                ?.video,
-                                                            null) != 0,
-                                                        child: CircleAvatar(
-                                                          backgroundColor:
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 12.0, 0.0, 12.0),
+                                        child: Container(
+                                          width: double.infinity,
+                                          height: 60.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
+                                            border: Border.all(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              width: 2.0,
+                                            ),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Expanded(
+                                                child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    showDialog(
+                                                      context: context,
+                                                      builder: (BuildContext
+                                                          context) {
+                                                        return AlertDialog(
+                                                          title: Text(
+                                                              'Video Call ${detailPsikologPsikologRecord.name} ?'),
+                                                          content: Text(
+                                                              "Anda yakin akan video call dengan ${detailPsikologPsikologRecord.name} dan mengurangi point video call anda ?"),
+                                                          actions: [
+                                                            TextButton(
+                                                              style: TextButton
+                                                                  .styleFrom(
+                                                                textStyle: Theme.of(
+                                                                        context)
+                                                                    .textTheme
+                                                                    .labelLarge,
+                                                              ),
+                                                              child: const Text(
+                                                                  'Cancel'),
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              },
+                                                            ),
+                                                            TextButton(
+                                                              style: TextButton
+                                                                  .styleFrom(
+                                                                textStyle: Theme.of(
+                                                                        context)
+                                                                    .textTheme
+                                                                    .labelLarge,
+                                                              ),
+                                                              child: const Text(
+                                                                  'OK'),
+                                                              onPressed:
+                                                                  () async {
+                                                                final users = FirebaseFirestore
+                                                                    .instance
+                                                                    .collection(
+                                                                        'users')
+                                                                    .doc(
+                                                                        currentUserUid);
+                                                                if (valueOrDefault(
+                                                                            currentUserDocument
+                                                                                ?.video,
+                                                                            null) !=
+                                                                        null &&
+                                                                    valueOrDefault(
+                                                                            currentUserDocument?.video,
+                                                                            0) >
+                                                                        0) {
+                                                                  users.update({
+                                                                    'video': valueOrDefault(
+                                                                            currentUserDocument?.video,
+                                                                            0) -
+                                                                        1
+                                                                  });
+                                                                  await launchURL(
+                                                                          detailPsikologPsikologRecord
+                                                                              .linkVideo)
+                                                                      .then(
+                                                                          (value) async {
+                                                                    await authManager
+                                                                        .refreshUser();
+                                                                  });
+                                                                } else {
+                                                                  context.pushNamed(
+                                                                      "pricing-2");
+                                                                }
+                                                              },
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    12.0,
+                                                                    0.0,
+                                                                    12.0),
+                                                        child: FaIcon(
+                                                          FontAwesomeIcons
+                                                              .video,
+                                                          color:
                                                               Color(0xFF446DE6),
-                                                          child: Text(
+                                                          size: 24.0,
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    8.0,
+                                                                    0.0,
+                                                                    12.0,
+                                                                    0.0),
+                                                        child: Text(
+                                                          'Video',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Readex Pro',
+                                                                color: Color(
+                                                                    0xFF446DE6),
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      Visibility(
+                                                          visible: valueOrDefault(
+                                                                      currentUserDocument
+                                                                          ?.video,
+                                                                      null) !=
+                                                                  null &&
                                                               valueOrDefault(
                                                                       currentUserDocument
                                                                           ?.video,
-                                                                      0)
-                                                                  .toString(),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Readex Pro',
-                                                                    color: Colors
-                                                                        .white,
-                                                                  )),
-                                                        ))
-                                                  ],
+                                                                      null) !=
+                                                                  0,
+                                                          child: CircleAvatar(
+                                                            backgroundColor:
+                                                                Color(
+                                                                    0xFF446DE6),
+                                                            child: Text(
+                                                                valueOrDefault(
+                                                                        currentUserDocument
+                                                                            ?.video,
+                                                                        0)
+                                                                    .toString(),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Readex Pro',
+                                                                      color: Colors
+                                                                          .white,
+                                                                    )),
+                                                          ))
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            SizedBox(
-                                              height: 100.0,
-                                              child: VerticalDivider(
-                                                thickness: 1.0,
-                                                indent: 12.0,
-                                                endIndent: 12.0,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .alternate,
+                                              SizedBox(
+                                                height: 100.0,
+                                                child: VerticalDivider(
+                                                  thickness: 1.0,
+                                                  indent: 12.0,
+                                                  endIndent: 12.0,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .alternate,
+                                                ),
                                               ),
-                                            ),
-                                            Expanded(
-                                              child: InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  final users =
-                                                      FirebaseFirestore.instance
-                                                          .collection('users')
-                                                          .doc(currentUserUid);
-                                                  if (valueOrDefault(
-                                                              currentUserDocument
-                                                                  ?.telepon,
-                                                              null) !=
-                                                          null &&
-                                                      valueOrDefault(
-                                                              currentUserDocument
-                                                                  ?.telepon,
-                                                              0) >
-                                                          0) {
-                                                    users.update({
-                                                      'telepon': valueOrDefault(
-                                                              currentUserDocument
-                                                                  ?.telepon,
-                                                              0) -
-                                                          1
-                                                    });
-                                                    await launchURL(
-                                                        detailPsikologPsikologRecord
-                                                            .linkCall);
-                                                  } else {
-                                                    context.pushNamed("pricing-2");
-                                                  }
-                                                },
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  12.0,
-                                                                  0.0,
-                                                                  12.0),
-                                                      child: Icon(
-                                                        Icons.call_rounded,
-                                                        color:
-                                                            Color(0xFF446DE6),
-                                                        size: 24.0,
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  8.0,
-                                                                  0.0,
-                                                                  12.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        'Call',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
-                                                                  color: Color(
-                                                                      0xFF446DE6),
-                                                                ),
-                                                      ),
-                                                    ),
-                                                    Visibility(
-                                                        visible: valueOrDefault(
-                                                                currentUserDocument
-                                                                    ?.telepon,
-                                                                null) !=
-                                                            null && valueOrDefault(
-                                                            currentUserDocument
-                                                                ?.telepon,
-                                                            null) != 0,
-                                                        child: CircleAvatar(
-                                                          backgroundColor:
+                                              Expanded(
+                                                child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () {
+                                                    showDialog(
+                                                      context: context,
+                                                      builder: (BuildContext
+                                                          context) {
+                                                        return AlertDialog(
+                                                          title: Text(
+                                                              'Telepon ${detailPsikologPsikologRecord.name} ?'),
+                                                          content: Text(
+                                                              "Anda yakin akan menelepon dengan ${detailPsikologPsikologRecord.name} dan mengurangi point telepon anda ?"),
+                                                          actions: [
+                                                            TextButton(
+                                                              style: TextButton
+                                                                  .styleFrom(
+                                                                textStyle: Theme.of(
+                                                                        context)
+                                                                    .textTheme
+                                                                    .labelLarge,
+                                                              ),
+                                                              child: const Text(
+                                                                  'Cancel'),
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              },
+                                                            ),
+                                                            TextButton(
+                                                              style: TextButton
+                                                                  .styleFrom(
+                                                                textStyle: Theme.of(
+                                                                        context)
+                                                                    .textTheme
+                                                                    .labelLarge,
+                                                              ),
+                                                              child: const Text(
+                                                                  'OK'),
+                                                              onPressed:
+                                                                  () async {
+                                                                final users = FirebaseFirestore
+                                                                    .instance
+                                                                    .collection(
+                                                                        'users')
+                                                                    .doc(
+                                                                        currentUserUid);
+                                                                if (valueOrDefault(
+                                                                            currentUserDocument
+                                                                                ?.telepon,
+                                                                            null) !=
+                                                                        null &&
+                                                                    valueOrDefault(
+                                                                            currentUserDocument?.telepon,
+                                                                            0) >
+                                                                        0) {
+                                                                  users.update({
+                                                                    'telepon': valueOrDefault(
+                                                                            currentUserDocument?.telepon,
+                                                                            0) -
+                                                                        1
+                                                                  });
+                                                                  await launchURL(
+                                                                      detailPsikologPsikologRecord
+                                                                          .linkCall);
+                                                                } else {
+                                                                  context.pushNamed(
+                                                                      "pricing-2");
+                                                                }
+                                                              },
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    12.0,
+                                                                    0.0,
+                                                                    12.0),
+                                                        child: Icon(
+                                                          Icons.call_rounded,
+                                                          color:
                                                               Color(0xFF446DE6),
-                                                          child: Text(
+                                                          size: 24.0,
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    8.0,
+                                                                    0.0,
+                                                                    12.0,
+                                                                    0.0),
+                                                        child: Text(
+                                                          'Call',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Readex Pro',
+                                                                color: Color(
+                                                                    0xFF446DE6),
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      Visibility(
+                                                          visible: valueOrDefault(
+                                                                      currentUserDocument
+                                                                          ?.telepon,
+                                                                      null) !=
+                                                                  null &&
                                                               valueOrDefault(
                                                                       currentUserDocument
                                                                           ?.telepon,
-                                                                      0)
-                                                                  .toString(),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Readex Pro',
-                                                                    color: Colors
-                                                                        .white,
-                                                                  )),
-                                                        ))
-                                                  ],
+                                                                      null) !=
+                                                                  0,
+                                                          child: CircleAvatar(
+                                                            backgroundColor:
+                                                                Color(
+                                                                    0xFF446DE6),
+                                                            child: Text(
+                                                                valueOrDefault(
+                                                                        currentUserDocument
+                                                                            ?.telepon,
+                                                                        0)
+                                                                    .toString(),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Readex Pro',
+                                                                      color: Colors
+                                                                          .white,
+                                                                    )),
+                                                          ))
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -894,102 +1048,155 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
                                       ).animateOnPageLoad(animationsMap[
                                           'containerOnPageLoadAnimation']!),
                                     ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 12.0),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: FFButtonWidget(
-                                              onPressed: () async {
-                                                final users = FirebaseFirestore
-                                                    .instance
-                                                    .collection('users')
-                                                    .doc(currentUserUid);
-                                                if (valueOrDefault(
-                                                            currentUserDocument
-                                                                ?.chat,
-                                                            null) !=
-                                                        null &&
-                                                    valueOrDefault(
-                                                            currentUserDocument
-                                                                ?.chat,
-                                                            0) >
-                                                        0) {
-                                                  await launchURL(
-                                                      detailPsikologPsikologRecord
-                                                          .linkChat);
-                                                  /// TODO - Chat Counter
-                                                  users.update({
-                                                    'chat': valueOrDefault(
-                                                            currentUserDocument
-                                                                ?.chat,
-                                                            0) -
-                                                        1
-                                                  });
-                                                } else {
-                                                  context.pushNamed("pricing-2");
-                                                }
-                                              },
-                                              text: 'Mulai Konsultasi',
-                                              options: FFButtonOptions(
-                                                width: double.infinity,
-                                                height: 48.0,
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 0.0),
-                                                iconPadding:
-                                                    EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
-                                                color: Color(0xFF446DE6),
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: Colors.white,
-                                                        ),
-                                                borderSide: BorderSide(
-                                                  color: Colors.transparent,
-                                                  width: 1.0,
+                                    Visibility(
+                                      visible: _model.berlangananButton(),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 12.0),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return AlertDialog(
+                                                        title: Text(
+                                                            'Chat ${detailPsikologPsikologRecord.name} ?'),
+                                                        content: Text(
+                                                            "Anda yakin akan chat dengan ${detailPsikologPsikologRecord.name} dan mengurangi point chat anda ?"),
+                                                        actions: [
+                                                          TextButton(
+                                                            style: TextButton
+                                                                .styleFrom(
+                                                              textStyle: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .labelLarge,
+                                                            ),
+                                                            child: const Text(
+                                                                'Cancel'),
+                                                            onPressed: () {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            },
+                                                          ),
+                                                          TextButton(
+                                                            style: TextButton
+                                                                .styleFrom(
+                                                              textStyle: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .labelLarge,
+                                                            ),
+                                                            child:
+                                                                const Text('OK'),
+                                                            onPressed: () async {
+                                                              final users =
+                                                                  FirebaseFirestore
+                                                                      .instance
+                                                                      .collection(
+                                                                          'users')
+                                                                      .doc(
+                                                                          currentUserUid);
+                                                              if (valueOrDefault(
+                                                                          currentUserDocument
+                                                                              ?.chat,
+                                                                          null) !=
+                                                                      null &&
+                                                                  valueOrDefault(
+                                                                          currentUserDocument
+                                                                              ?.chat,
+                                                                          0) >
+                                                                      0) {
+                                                                await launchURL(
+                                                                    detailPsikologPsikologRecord
+                                                                        .linkChat);
+                                                                users.update({
+                                                                  'chat': valueOrDefault(
+                                                                          currentUserDocument
+                                                                              ?.chat,
+                                                                          0) -
+                                                                      1
+                                                                });
+                                                              } else {
+                                                                context.pushNamed(
+                                                                    "pricing-2");
+                                                              }
+                                                            },
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                                text: 'Mulai Konsultasi',
+                                                options: FFButtonOptions(
+                                                  width: double.infinity,
+                                                  height: 48.0,
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 0.0),
+                                                  iconPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(
+                                                              0.0, 0.0, 0.0, 0.0),
+                                                  color: Color(0xFF446DE6),
+                                                  textStyle:
+                                                      FlutterFlowTheme.of(context)
+                                                          .titleSmall
+                                                          .override(
+                                                            fontFamily: 'Poppins',
+                                                            color: Colors.white,
+                                                          ),
+                                                  borderSide: BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(8.0),
                                                 ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
                                               ),
                                             ),
-                                          ),
-                                          Visibility(
-                                            visible: valueOrDefault(
-                                                    currentUserDocument?.chat,
-                                                    null) !=
-                                                null && valueOrDefault(
-                                                currentUserDocument?.chat,
-                                                null) != 0,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: CircleAvatar(
-                                                backgroundColor:
-                                                    Color(0xFF446DE6),
-                                                child: Text(
-                                                    valueOrDefault(
-                                                            currentUserDocument
-                                                                ?.chat,
-                                                            0)
-                                                        .toString(),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Readex Pro',
-                                                          color: Colors.white,
-                                                        )),
+                                            Visibility(
+                                              visible: valueOrDefault(
+                                                          currentUserDocument
+                                                              ?.chat,
+                                                          null) !=
+                                                      null &&
+                                                  valueOrDefault(
+                                                          currentUserDocument
+                                                              ?.chat,
+                                                          null) !=
+                                                      0,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: CircleAvatar(
+                                                  backgroundColor:
+                                                      Color(0xFF446DE6),
+                                                  child: Text(
+                                                      valueOrDefault(
+                                                              currentUserDocument
+                                                                  ?.chat,
+                                                              0)
+                                                          .toString(),
+                                                      style: FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'Readex Pro',
+                                                            color: Colors.white,
+                                                          )),
+                                                ),
                                               ),
-                                            ),
-                                          )
-                                        ],
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -1013,7 +1220,7 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      if(mounted) {
+      if (mounted) {
         setState(() {
           authManager.refreshUser();
         });
