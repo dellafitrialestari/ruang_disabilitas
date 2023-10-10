@@ -262,7 +262,7 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
                                           width: double.infinity,
                                           height: 60.0,
                                           decoration: BoxDecoration(
-                                            color: Color(0xFF446DE6),
+                                            color: Color(0xFF6CC166),
                                             borderRadius:
                                                 BorderRadius.circular(12.0),
                                             border: Border.all(
@@ -433,7 +433,7 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
                                                           FontAwesomeIcons
                                                               .video,
                                                           color:
-                                                              Color(0xFF446DE6),
+                                                              Color(0xFF6CC166),
                                                           size: 24.0,
                                                         ),
                                                       ),
@@ -606,7 +606,7 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
                                                         child: Icon(
                                                           Icons.call_rounded,
                                                           color:
-                                                              Color(0xFF446DE6),
+                                                              Color(0xFF6CC166),
                                                           size: 24.0,
                                                         ),
                                                       ),
@@ -740,6 +740,7 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
                                                       snapshot.data!;
                                                   return ListView.builder(
                                                     padding: EdgeInsets.zero,
+                                                    primary: false,
                                                     shrinkWrap: true,
                                                     scrollDirection:
                                                         Axis.vertical,
@@ -1144,7 +1145,7 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
                                                       EdgeInsetsDirectional
                                                           .fromSTEB(
                                                               0.0, 0.0, 0.0, 0.0),
-                                                  color: Color(0xFF446DE6),
+                                                  color: Color(0xFF6CC166),
                                                   textStyle:
                                                       FlutterFlowTheme.of(context)
                                                           .titleSmall
@@ -1177,7 +1178,7 @@ class _DetailPsikologWidgetState extends State<DetailPsikologWidget>
                                                     const EdgeInsets.all(8.0),
                                                 child: CircleAvatar(
                                                   backgroundColor:
-                                                      Color(0xFF446DE6),
+                                                      Color(0xFF6CC166),
                                                   child: Text(
                                                       valueOrDefault(
                                                               currentUserDocument

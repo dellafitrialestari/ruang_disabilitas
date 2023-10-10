@@ -14,6 +14,7 @@ void main() async {
   usePathUrlStrategy();
   await initFirebase();
   await configureFCM();
+  await configureCrashlytics();
   runApp(MyApp());
 }
 
