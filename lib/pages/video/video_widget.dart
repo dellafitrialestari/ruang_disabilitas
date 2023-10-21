@@ -1,13 +1,13 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_youtube_player.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'video_model.dart';
+
 export 'video_model.dart';
 
 class VideoWidget extends StatefulWidget {
@@ -46,7 +46,6 @@ class _VideoWidgetState extends State<VideoWidget> {
           top: true,
           child: SingleChildScrollView(
             child: Column(
-              mainAxisSize: MainAxisSize.max,
               children: [
                 Container(
                   width: MediaQuery.sizeOf(context).width * 1.0,
@@ -108,180 +107,220 @@ class _VideoWidgetState extends State<VideoWidget> {
                     ),
                   ),
                 ),
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(29.0, 0.0, 29.0, 10.0),
-                      child: StreamBuilder<List<VideoRecord>>(
-                        stream: queryVideoRecord(),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50.0,
-                                height: 50.0,
-                                child: SpinKitDualRing(
-                                  color: Color(0xFF6CC166),
-                                  size: 50.0,
-                                ),
-                              ),
-                            );
-                          }
-                          List<VideoRecord> listViewVideoRecordList =
-                              snapshot.data!;
-                          return ListView.builder(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: listViewVideoRecordList.length,
-                            itemBuilder: (context, listViewIndex) {
-                              final listViewVideoRecord =
-                                  listViewVideoRecordList[listViewIndex];
-                              return Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 18.0, 0.0, 0.0),
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    await launchURL(
-                                        listViewVideoRecord.connect);
-                                  },
-                                  child: Container(
-                                    width: 372.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          blurRadius: 4.0,
-                                          color: Color(0x33000000),
-                                          offset: Offset(0.0, 2.0),
-                                        )
+                Padding(
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(29.0, 0.0, 29.0, 10.0),
+                  child: StreamBuilder<List<VideoRecord>>(
+                    stream: queryVideoRecord(),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: SpinKitDualRing(
+                              color: Color(0xFF6CC166),
+                              size: 50.0,
+                            ),
+                          ),
+                        );
+                      }
+                      List<VideoRecord> listViewVideoRecordList =
+                          snapshot.data!;
+                      return ListView.builder(
+                        primary: false,
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        clipBehavior: Clip.none,
+                        itemCount: listViewVideoRecordList.length,
+                        itemBuilder: (context, listViewIndex) {
+                          final listViewVideoRecord =
+                              listViewVideoRecordList[listViewIndex];
+                          final youtubePlayerController =
+                              YoutubePlayerController.fromVideoId(
+                            videoId: _convertUrlToId(listViewVideoRecord.link)!,
+                            autoPlay: false,
+                            params: YoutubePlayerParams(
+                              mute: false,
+                              // loop: true,
+                              showControls: false,
+                              showFullscreenButton: false,
+                            ),
+                          );
+                          return YoutubePlayerControllerProvider(
+                            controller: youtubePlayerController,
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 18.0, 0.0, 0.0),
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  await launchURL(listViewVideoRecord.connect);
+                                },
+                                child: Container(
+                                  width: 372.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 4.0,
+                                        color: Color(0x33000000),
+                                        offset: Offset(0.0, 2.0),
+                                      )
+                                    ],
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        10.0, 10.0, 10.0, 10.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        YoutubeValueBuilder(
+                                            controller: youtubePlayerController,
+                                            builder: (context, value) {
+                                              return Stack(
+                                                children: [
+                                                  YoutubePlayerScaffold(
+                                                      builder:
+                                                          (context, player) =>
+                                                              player,
+                                                      controller:
+                                                          youtubePlayerController),
+                                                  // FlutterFlowYoutubePlayer(
+                                                  //   url: listViewVideoRecord.link,
+                                                  //   width: double.infinity,
+                                                  //   height: double.infinity,
+                                                  //   autoPlay: false,
+                                                  //   looping: true,
+                                                  //   mute: false,
+                                                  //   showControls: true,
+                                                  //   showFullScreen: false,
+                                                  // ),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      // if(await youtubePlayerController.playerState == PlayerState.playing) {
+                                                      //   await youtubePlayerController.pauseVideo();
+                                                      // }
+                                                      // await youtubePlayerController.playVideo();
+                                                      if(value.playerState == PlayerState.playing) {
+                                                        context.ytController.pauseVideo();
+                                                      } else {
+                                                        context.ytController.playVideo();
+                                                      }
+                                                      debugPrint("should be playing");
+                                                    },
+                                                    child: Container(
+                                                      color: Colors.transparent,
+                                                      width: double.infinity,
+                                                      height: 200,
+                                                    ),
+                                                  )
+                                                ],
+                                              );
+                                            }),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  4.0, 8.0, 4.0, 4.0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                listViewVideoRecord.judul,
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      color: Color(0xFF1E1E1E),
+                                                      fontSize: 16.0,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                    ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 6.0, 0.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  1.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Text(
+                                                        'By: ',
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Readex Pro',
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 12.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300,
+                                                            ),
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      child: Text(
+                                                        listViewVideoRecord
+                                                            .channel,
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .labelMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Poppins',
+                                                              color: Color(
+                                                                  0xFF074471),
+                                                              fontSize: 12.0,
+                                                            ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ].divide(SizedBox(height: 4.0)),
+                                          ),
+                                        ),
                                       ],
-                                      borderRadius: BorderRadius.circular(12.0),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10.0, 10.0, 10.0, 10.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          FlutterFlowYoutubePlayer(
-                                            url: listViewVideoRecord.link,
-                                            width: double.infinity,
-                                            height: double.infinity,
-                                            autoPlay: false,
-                                            looping: true,
-                                            mute: false,
-                                            showControls: true,
-                                            showFullScreen: false,
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    4.0, 8.0, 4.0, 4.0),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  listViewVideoRecord.judul,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        color:
-                                                            Color(0xFF1E1E1E),
-                                                        fontSize: 16.0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 6.0, 0.0, 0.0),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    1.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        child: Text(
-                                                          'By: ',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Readex Pro',
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 12.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w300,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        child: Text(
-                                                          listViewVideoRecord
-                                                              .channel,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .labelMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Poppins',
-                                                                color: Color(
-                                                                    0xFF074471),
-                                                                fontSize: 12.0,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ].divide(SizedBox(height: 4.0)),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
                                     ),
                                   ),
                                 ),
-                              );
-                            },
+                              ),
+                            ),
                           );
                         },
-                      ),
-                    ),
-                  ],
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
@@ -289,5 +328,24 @@ class _VideoWidgetState extends State<VideoWidget> {
         ),
       ),
     );
+  }
+
+  String? _convertUrlToId(String url, {bool trimWhitespaces = true}) {
+    assert(url.isNotEmpty, 'Url cannot be empty');
+    if (!url.contains("http") && (url.length == 11)) return url;
+    if (trimWhitespaces) url = url.trim();
+    for (final regex in [
+      RegExp(
+        r"^https:\/\/(?:www\.|m\.)?youtube\.com\/watch\?v=([_\-a-zA-Z0-9]{11}).*$",
+      ),
+      RegExp(
+        r"^https:\/\/(?:www\.|m\.)?youtube(?:-nocookie)?\.com\/embed\/([_\-a-zA-Z0-9]{11}).*$",
+      ),
+      RegExp(r"^https:\/\/youtu\.be\/([_\-a-zA-Z0-9]{11}).*$")
+    ]) {
+      final match = regex.firstMatch(url);
+      if (match != null && match.groupCount >= 1) return match.group(1);
+    }
+    return null;
   }
 }

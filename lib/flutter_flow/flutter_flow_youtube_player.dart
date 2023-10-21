@@ -142,14 +142,22 @@ class _FlutterFlowYoutubePlayerState extends State<FlutterFlowYoutubePlayer>
       );
     }
     if (handleFullScreen) {
-      _controller!.onFullscreenChange = (fullScreen) {
+      _controller?.setFullScreenListener((fullScreen) {
         if (fullScreen) {
           _youtubeFullScreenControllerMap[_videoId!] = _controller!;
           _youtubeWrapper!.updateYoutubePlayer(_controller, _videoId);
         } else {
           _youtubeWrapper!.updateYoutubePlayer();
         }
-      };
+      });
+      // _controller!.onFullscreenChange = (fullScreen) {
+      //   if (fullScreen) {
+      //     _youtubeFullScreenControllerMap[_videoId!] = _controller!;
+      //     _youtubeWrapper!.updateYoutubePlayer(_controller, _videoId);
+      //   } else {
+      //     _youtubeWrapper!.updateYoutubePlayer();
+      //   }
+      // };
     }
   }
 
